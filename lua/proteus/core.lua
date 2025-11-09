@@ -49,8 +49,9 @@ function M.updateRPC()
 
 	local res = curl.post("http://127.0.0.1:6969/update", {
 		body = vim.fn.json_encode({
-			details = project,
-			state = file,
+			details = "Working on " .. file,
+			state = "In " .. project,
+			sticky = true,
 		}),
 		headers = {
 			["Content-Type"] = "application/json",
@@ -65,7 +66,9 @@ function M.clearRPC()
 	-- vim.notify("Cleared RPC", vim.log.levels.INFO)
 
 	local res = curl.post("http://127.0.0.1:6969/update", {
-		body = vim.fn.json_encode({}),
+		body = vim.fn.json_encode({
+			sticky = false,
+		}),
 		headers = {
 			["Content-Type"] = "application/json",
 		},
